@@ -1,12 +1,34 @@
-class TelegramMessageException(Exception):  # Исключение, которое выбросим,
+class TelegramMessageException(Exception):
+    """Ошибка отправки."""
+
     pass
-class NoTokensException(Exception):  # Исключение, которое выбросим,
+
+
+class NoTokensException(Exception):
+    """Нет токена."""
+
     pass
-class NoKeyHmwrkException(Exception):  # Исключение, которое выбросим,
+
+
+class NoKeyHmwrkException(Exception):
+    """Нет ключа."""
+
     pass
-class NoKeyHmwrkNameException(Exception):  # Исключение, которое выбросим,
+
+
+class NoKeyHmwrkNameException(Exception):
+    """Нет имени."""
+
     pass
+
+
 class StatusException(Exception):
+    """Статус не найден."""
+
     pass
+
+
 class GetApiException(Exception):
+    """api exception."""
+
     pass
