@@ -102,12 +102,13 @@ def main():
             if new_status != status:
                 send_message(bot, new_status)
                 status = new_status
+        except exceptions.NoTokensException:
+            break
         except Exception as error:
             message = f'Сбой в работе программы: {error}'
             send_message(bot, message)
-            break
-        else:
-            time.sleep(RETRY_PERIOD)
+
+        time.sleep(RETRY_PERIOD)
 
 
 if __name__ == '__main__':
