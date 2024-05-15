@@ -32,3 +32,9 @@ class GetApiException(Exception):
     """api exception."""
 
     pass
+
+
+class NoHmWrkException(Exception):
+    """no homework."""
+
+    pass

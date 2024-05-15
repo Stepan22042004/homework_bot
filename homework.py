@@ -27,7 +27,7 @@ HOMEWORK_VERDICTS = {
 }
 
 
-def check_tokens() -> bool:
+def check_tokens() -> None:
     """есть ли токены в переменных окружения."""
     no_token = ''
 
@@ -38,22 +38,22 @@ def check_tokens() -> bool:
     if TELEGRAM_CHAT_ID is None:
         no_token += 'TELEGRAM_CHAT_ID'
     if no_token == '':
-        return True
+        return
     else:
         logging.critical(no_token)
         raise exceptions.NoTokensException()
 
 
-def send_message(bot: TeleBot, message: str) -> bool:
+def send_message(bot: TeleBot, message: str) -> None:
     """Отправляет сообщение о статусе ревью."""
     try:
         bot.send_message(TELEGRAM_CHAT_ID, message)
     except Exception:
         logging.exception('message_error')
-        return False
+        return
     else:
         logging.debug('message_success')
-        return True
+        return
 
 
 def get_api_answer(timestamp: time) -> dict:
@@ -81,13 +81,14 @@ def check_response(response: dict):
         raise TypeError()
     if len(response['homeworks']) == 0:
         logging.debug('no homework')
+        raise exceptions.NoHmWrkException()
 
 
 def parse_status(homework: dict) -> str:
     """Извлекает информацию о конкретной работе."""
     if 'homework_name' not in homework:
         raise exceptions.NoKeyHmwrkNameException()
-    if ('status' not in homework.keys()
+    if ('status' not in homework
             or homework['status'] not in HOMEWORK_VERDICTS):
         raise exceptions.StatusException()
 
